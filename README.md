@@ -16,3 +16,6 @@
 Linux:
 ```bash
 sudo apt install tesseract-ocr
+
+
+lkj
