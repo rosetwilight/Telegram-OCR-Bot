@@ -1,0 +1,20 @@
+__pycache__/
+*.py[cod]
+*.log
+*.db
+*.sqlite
+*.pid
+
+.env
+venv/
+bot-env/
+
+# PyInstaller/Build
+build/
+dist/
+*.egg-info/
+*.spec
+
+# IDE
+.vscode/
+.idea/
