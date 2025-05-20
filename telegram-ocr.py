@@ -1,3 +1,5 @@
+import platform
+import shutil
 import asyncio
 from aiogram import Bot, Dispatcher, types, F
 from aiogram.filters import CommandStart
@@ -7,9 +9,18 @@ import os
 import pytesseract
 from PIL import Image
 
-# Указываем явно путь к Tesseract и папке с языками
-pytesseract.pytesseract.tesseract_cmd = "/usr/bin/tesseract"
-os.environ["TESSDATA_PREFIX"] = "/usr/share/tesseract-ocr/5/tessdata"
+# Определяем ОС
+system = platform.system()
+
+# Настройка пути к Tesseract и языков
+if system == "Windows":
+    # Автоматически ищем tesseract.exe
+    tesseract_path = shutil.which("tesseract") or r"C:\Program Files\Tesseract-OCR\tesseract.exe"
+    pytesseract.pytesseract.tesseract_cmd = tesseract_path
+    os.environ["TESSDATA_PREFIX"] = os.path.join(os.path.dirname(tesseract_path), "tessdata")
+else:
+    pytesseract.pytesseract.tesseract_cmd = "/usr/bin/tesseract"
+    os.environ["TESSDATA_PREFIX"] = "/usr/share/tesseract-ocr/5/tessdata"
 
 
 load_dotenv()
